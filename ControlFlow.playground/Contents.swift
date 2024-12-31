@@ -3,6 +3,24 @@
  Control Flow
  */
 
+for index in 0...0 { // increament will take place in the next iteration.
+    print("This will execute at least once.")
+}
+
+for index in 0..<0 {
+    print("This will not execute at all.")
+}
+
+/*
+for index in 0...(-1) { // this will produce a crash.
+    // statement
+}
+
+for index in 0..<(-1) { // this will produce a crash.
+ // statement
+}
+ */
+
 let numbers = ["One", "Two", "Three"]
 for number in numbers { // item
     print("Number: \(number)")
