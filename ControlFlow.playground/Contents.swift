@@ -117,3 +117,62 @@ default:
 }
 
 print(matchOrNot)
+
+// Tuples
+let coordinates = (1, 1)
+let line = switch coordinates {
+case (0, 0):
+    print("It is a straight line at origin.")
+case (0, _):
+    print("It is a straight line on y-axis.")
+case (_, 0):
+    print("It is a straight line at x-axis.")
+case (-2...2, -2...2):
+    print("The line is inside the box.")
+default:
+    print("The line is outside the box.")
+}
+
+print(line)
+
+print("*********** defer *************")
+
+/**
+ - it is used to execute the protion of the code when the program reaches the end of the scope.
+ */
+
+var score = 1
+if score < 10 {
+    defer {
+        print(score)
+        score = 1 // set 1 for next program.
+    }
+    score += 5
+    print("This will execute the print statement before defer block.")
+}
+
+// Checking API availability.
+
+if #available(iOS 15.0, *) {
+    // if platform is iOS 15.0 or plus.
+} else {
+    // fallback.
+}
+
+@available(macOS 10.12, *)
+struct ColorPreference {
+    let accentColor = "blue"
+}
+
+func chooseAccentColor() -> String {
+    guard #available(macOS 10.12, *) else {
+        return "gray"
+    }
+    let colorPreference = ColorPreference()
+    return colorPreference.accentColor
+}
+
+// unavailability check.
+if #unavailable(iOS 15.0) {
+    // fallback code.
+}
