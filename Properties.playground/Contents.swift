@@ -142,3 +142,58 @@ toggle.isFeatureEnabled
 
 toggle.isFeatureEnabled = true
 toggle.isFeatureEnabled
+
+
+// Property wrapper can also expose a projectedValue using $ syntax.
+@propertyWrapper
+struct Debuggable<Value> {
+    private var value: Value
+
+    init(value: Value) {
+        self.value = value
+    }
+
+    var wrappedValue: Value {
+        get { value }
+        set { value = newValue }
+    }
+
+    var projectedValue: String {
+        "Currently the value is: \(value)"
+    }
+}
+
+struct Example {
+    @Debuggable(value: 0) var number: Int
+}
+
+var object = Example()
+object.number = 10
+object.number // number value
+object.$number // projectedValue
+
+// Type property
+class Class1 {
+    static var someVariable: Int = 0
+}
+
+class Class2 {
+    func changeVariable() {
+        Class1.someVariable = 1
+    }
+}
+
+class Class3 {
+    func changeVariable() {
+        Class1.someVariable = 2
+    }
+}
+
+Class1.someVariable
+let class2 = Class2()
+class2.changeVariable()
+Class1.someVariable
+
+let class3 = Class3()
+class3.changeVariable()
+Class1.someVariable // There is only one copy of this property.
